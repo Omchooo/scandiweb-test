@@ -13,7 +13,3 @@ https://juniortest-omer-sahmanovic.000webhostapp.com/add_product.php
 QA test for this assignment has passed successfully as seen below:
 
 ![Logo](https://snipboard.io/kK8ljA.jpg)
-## Author
-
-- [@Omchooo](https://github.com/Omchooo/)
-
