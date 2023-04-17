@@ -17,7 +17,13 @@ $(document).ready(function() {
             },
             success: function(response) {
                 //refresh results
+                //not acceptable by QA test:
+
                 $('.box-field').load(location.href + ' .box');
+
+                // selectedIds.forEach(function(id) {
+                //     $('.delete-checkbox[data-id="' + id + '"]').closest('.box').remove();
+                // });
             },
             error: function(response) {
 
