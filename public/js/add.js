@@ -46,7 +46,7 @@ $(document).ready(function () {
           // Redirect to the index.php page
           var baseUrl = window.location.protocol + "//" + window.location.host;
           var indexUrl = baseUrl + "/";
-          // window.location.href = indexUrl;
+          window.location.href = indexUrl;
         } 
         // else {
         //   // error
