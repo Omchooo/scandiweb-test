@@ -19,9 +19,9 @@ $(document).ready(function() {
                 //refresh results
                 $('.box-field').load(location.href + ' .box');
             },
-            error: function(xhr, status, error) {
+            error: function(response) {
 
-            console.log('Error deleting products: ' + error);
+            console.log('Error deleting product(s): ' + response.responseJSON.message);
         }
         });
     });
