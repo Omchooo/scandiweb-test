@@ -1,6 +1,10 @@
 <?php
-require_once('./includes/database.php');
-abstract class QueryBuilder extends DB
+
+namespace Database;
+
+use Database\DB;
+
+class QueryBuilder extends DB
 {
     private $sql;
     private $params;
@@ -20,11 +24,11 @@ abstract class QueryBuilder extends DB
 
                 $this->sql = '';
 
-                return $query->fetchAll(PDO::FETCH_OBJ);
-            } catch (PDOException $e) {
+                return $query->fetchAll(\PDO::FETCH_OBJ);
+            } catch (\PDOException $e) {
 
                 $errorInfo = $e->getMessage();
-                return array("success" => false, "message" => $errorInfo);
+                return ['success' => false, 'message' => $errorInfo];
             }
         } else {
 
@@ -37,11 +41,14 @@ abstract class QueryBuilder extends DB
                 $this->params = null;
 
 
-                return $stmt->fetchAll(PDO::FETCH_OBJ);
-            } catch (PDOException $e) {
+                return $stmt->fetchAll(\PDO::FETCH_OBJ);
+            } catch (\PDOException $e) {
 
                 $errorInfo = $e->getMessage();
-                return array("success" => false, "message" => $errorInfo);
+
+                header('Content-Type: application/json', true, 400);
+                $this->data = ['success' => false, 'message' => $errorInfo];
+                // return ['success' => false, 'message' => $errorInfo];
             }
         }
     }
@@ -55,18 +62,20 @@ abstract class QueryBuilder extends DB
             $this->sql = '';
             $this->params = null;
 
-            $this->data = array("success" => true, "message" => "successfully executed");
-
-        } catch (PDOException $e) {
+            header('Content-Type: application/json', true, 200);
+            $this->data = ['success' => true, 'message' => 'successfully executed'];
+        } catch (\PDOException $e) {
 
             $errorInfo = $e->getMessage();
-            $this->data = array("success" => false, "message" => $errorInfo);
+
+            header('Content-Type: application/json', true, 400);
+            $this->data = ['success' => false, 'message' => $errorInfo];
         }
 
         echo json_encode($this->data);
     }
 
-    public function select($select, $table)
+    public function select(string $select, string $table)
     {
 
         $this->sql = "SELECT $select FROM $table";
@@ -74,7 +83,7 @@ abstract class QueryBuilder extends DB
         return $this;
     }
 
-    public function insert($table, array $params)
+    public function insert(string $table, array $params)
     {
 
         $this->params = array_values($params);
@@ -84,7 +93,7 @@ abstract class QueryBuilder extends DB
         return $this;
     }
 
-    public function delete($table)
+    public function delete(string $table)
     {
 
         $this->sql = "DELETE FROM $table";
@@ -92,7 +101,7 @@ abstract class QueryBuilder extends DB
         return $this;
     }
 
-    public function where($column, $operator, $value)
+    public function where(string $column, string $operator, string $value)
     {
 
         $this->params[] = $value;
@@ -102,7 +111,7 @@ abstract class QueryBuilder extends DB
         return $this;
     }
 
-    public function whereIn($column, array $value)
+    public function whereIn(string $column, array $value)
     {
 
         $this->params = $value;
@@ -113,7 +122,7 @@ abstract class QueryBuilder extends DB
         return $this;
     }
 
-    public function orderBy($column, $path = "desc")
+    public function orderBy(string $column, string $path = 'desc')
     {
 
         $this->sql .= " ORDER BY $column $path";

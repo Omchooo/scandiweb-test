@@ -1,17 +1,19 @@
 <?php
 
-trait Validate {
+namespace Validation;
 
+trait Validate
+{
     public $errorInfo;
 
     private $errorMessages = [
-        0 => "Please, submit required data",
-        1 => "Please, provide the data of indicated type",
-        2 => "The SKU is invalid or already exists",
+        0 => 'Please, submit required data',
+        1 => 'Please, provide the data of indicated type',
+        2 => 'The SKU is invalid or already exists',
     ];
 
 
-    public function errorInfo($errorCode)
+    public function errorInfo(string $errorCode)
     {
         if (array_key_exists($errorCode, $this->errorMessages)) {
             $matchedValue = $this->errorMessages[$errorCode];
@@ -22,9 +24,9 @@ trait Validate {
         }
     }
 
-    public function checkSku($sku)
+    public function checkSku(string $sku)
     {
-        return $this->select("*", "listings")->where("Sku", "=", $sku)->get();   
+        return $this->select('*', 'listings')->where('Sku', '=', $sku)->get();
     }
 
     public function isEmpty(array $params)
@@ -38,7 +40,7 @@ trait Validate {
         }
     }
 
-    public function validateSku($sku)
+    public function validateSku(string $sku)
     {
         return !(!preg_match('/\s/', $sku) && !$this->checkSku($sku));
     }
@@ -47,6 +49,4 @@ trait Validate {
     {
         return !(filter_var($price, FILTER_VALIDATE_FLOAT) && (strlen($price) > 0));
     }
-
-   
 }

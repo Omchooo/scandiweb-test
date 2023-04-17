@@ -1,12 +1,15 @@
 <?php
-require_once('./config.php');
+
+// require_once('./config.php');
+
+namespace Database;
 
 class DB
 {
-    private $servername,
-            $username,
-            $password,
-            $dbname;
+    private $servername;
+    private $username;
+    private $password;
+    private $dbname;
     protected $connection;
 
     public function __construct()
@@ -18,7 +21,7 @@ class DB
         $this->setConnection();
     }
 
-    public function setServerName($servername = DBHOST)
+    public function setServerName(string $servername = DBHOST)
     {
         $this->servername = $servername;
     }
@@ -28,7 +31,7 @@ class DB
         return $this->servername;
     }
 
-    public function setUsername($username = DBUSER)
+    public function setUsername(string $username = DBUSER)
     {
         $this->username = $username;
     }
@@ -38,7 +41,7 @@ class DB
         return $this->username;
     }
 
-    public function setPassword($password = DBPASSWORD)
+    public function setPassword(string $password = DBPASSWORD)
     {
         $this->password = $password;
     }
@@ -48,7 +51,7 @@ class DB
         return $this->password;
     }
 
-    public function setDatabaseName($dbname = DBNAME)
+    public function setDatabaseName(string $dbname = DBNAME)
     {
         $this->dbname = $dbname;
     }
@@ -61,10 +64,10 @@ class DB
     {
         try {
             $dsn = "mysql:dbname=$this->dbname;host=$this->servername";
-            $this->connection = new PDO($dsn, $this->username, $this->password);
+            $this->connection = new \PDO($dsn, $this->username, $this->password);
             // echo "connected successfully";
-        } catch (PDOException $e) {
-            echo "Connection failed: " . $e->getMessage();
+        } catch (\PDOException $e) {
+            echo 'Connection failed: ' . $e->getMessage();
         }
     }
 
@@ -72,5 +75,4 @@ class DB
     {
         return $this->connection;
     }
-
 }

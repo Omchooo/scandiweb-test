@@ -1,9 +1,12 @@
-<?php 
-require_once('./includes/Product.php');
+<?php
 
-class Book extends Product {
+namespace Products\Types;
 
-    function __construct($sku, $name, $price, $attribute, $measurement, $weight) /*$type, - after $price*/
+use Products\Product;
+
+class DVD extends Product
+{
+    public function __construct($sku, $name, $price, $attribute, $measurement, $size) /*$type, - after $price*/
     {
         parent::__construct();
 
@@ -13,9 +16,11 @@ class Book extends Product {
         // $this->type = $type;
         $this->attribute = htmlspecialchars($attribute);
         $this->measurement = htmlspecialchars($measurement);
-        $this->size = $this->validateSize(array(
-            'weight' => $weight));
-
+        $this->size = $this->validateSize(
+            [
+                'size' => $size
+            ]
+        );
     }
 
     public function validateSize(array $params)
@@ -24,14 +29,12 @@ class Book extends Product {
             return false;
         }
 
-        if(is_numeric($params['weight']))
-        {
-            return $params['weight'];
+        if (is_numeric($params['size'])) {
+            return $params['size'];
         } else {
             $this->errorInfo = $this->errorInfo(1);
 
             return false;
         }
-
     }
 }
