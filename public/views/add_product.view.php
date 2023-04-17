@@ -23,8 +23,8 @@
           <h2>Product Add</h2>
         </div>
         <div class="nav-items">
-          <button type="submit" class="btn" form="product_form">SAVE</button>
-          <a href="/"><button class="btn">CANCEL</button></a>
+          <button type="submit" class="btn" form="product_form">Save</button>
+          <a href="/"><button class="btn">Cancel</button></a>
         </div>
       </div>
     </div>
