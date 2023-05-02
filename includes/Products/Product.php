@@ -12,7 +12,6 @@ abstract class Product extends QueryBuilder
     protected $sku;
     protected $name;
     protected $price;
-    // protected $type;
     protected $attribute;
     protected $measurement;
     protected $size;
@@ -36,14 +35,13 @@ abstract class Product extends QueryBuilder
         }
 
         if ($this->validateSku($params['sku'])) {
-            // echo "fail sku";
+
             $this->errorInfo = $this->errorInfo(2);
 
             return false;
         }
 
         if ($this->validatePrice($params['price'])) {
-            // echo "fail price";
 
             $this->errorInfo = $this->errorInfo(1);
 
@@ -59,7 +57,6 @@ abstract class Product extends QueryBuilder
             'sku' => $this->sku ?? null,
             'name' => $this->name ?? null,
             'price' => $this->price ?? null,
-            // "type" => $this->type ?? null,
             'attribute' => $this->attribute ?? null,
             'measurement' => $this->measurement ?? null,
             'size' => $this->size ?? null,

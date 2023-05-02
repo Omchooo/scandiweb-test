@@ -3,25 +3,24 @@
 require_once('autoload.php');
 
 use Routes\Router;
-use Controllers\AddProduct;
-use Controllers\ListProduct;
+use Controllers\ProductController;
 
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
+$postMethod = $_POST['_method'] ?? $_SERVER['REQUEST_METHOD'];
 
 //add new routes here
-Router::route('/', ListProduct::class);
-Router::route('/add_product', AddProduct::class);
+Router::get('/', ProductController::class, 'index');
+Router::delete('/product', ProductController::class, 'delete');
+
+Router::get('/add_product', ProductController::class, 'add');
+Router::post('/product', ProductController::class, 'create');
 
 $allRoutes = Router::getRoutes();
-if (array_key_exists($uri, $allRoutes)) {
 
-    //IF THE CONTROLLER IS STATIC
-    // call_user_func($allRoutes[$uri] . 'CONTROLLER_METHOD');
-
-    //IF YOU DONT WANT TO RUN THE CONTROLLER AS STATIC
-    $controller = new $allRoutes[$uri]();
-    // $method = CONTROLLER_METHOD;
-    // $controller->$method();
-} else {
-    require_once('./public/views/404.view.php');
+foreach ($allRoutes as $routes) {
+    if ($routes['uri'] === $uri && $routes['method'] === strtoupper($postMethod)) {
+        $controller = new $routes['controller']();
+        $method = $routes['class'];
+        $controller->$method();
+    }
 }

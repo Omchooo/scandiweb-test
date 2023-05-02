@@ -6,14 +6,13 @@ use Products\Product;
 
 class DVD extends Product
 {
-    public function __construct($sku, $name, $price, $attribute, $measurement, $size) /*$type, - after $price*/
+    public function __construct($sku, $name, $price, $attribute, $measurement, $size)
     {
         parent::__construct();
 
         $this->sku = htmlspecialchars($sku);
         $this->name = htmlspecialchars($name);
         $this->price = htmlspecialchars($price);
-        // $this->type = $type;
         $this->attribute = htmlspecialchars($attribute);
         $this->measurement = htmlspecialchars($measurement);
         $this->size = $this->validateSize(

@@ -48,7 +48,6 @@ class QueryBuilder extends DB
 
                 header('Content-Type: application/json', true, 400);
                 $this->data = ['success' => false, 'message' => $errorInfo];
-                // return ['success' => false, 'message' => $errorInfo];
             }
         }
     }

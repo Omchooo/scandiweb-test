@@ -7,23 +7,19 @@ $(document).ready(function() {
             selectedIds.push($(this).data('id'));
         });
 
-        // console.log(selectedIds);
         // Send AJAX request to delete the selected items
         $.ajax({
             type: 'POST',
-            url: '/',
+            url: '/product',
             data: {
-                delete: selectedIds
+                _method: 'DELETE',
+                id: selectedIds
             },
             success: function(response) {
                 //refresh results
-                //not acceptable by QA test:
 
                 $('.box-field').load(location.href + ' .box');
 
-                // selectedIds.forEach(function(id) {
-                //     $('.delete-checkbox[data-id="' + id + '"]').closest('.box').remove();
-                // });
             },
             error: function(response) {
 

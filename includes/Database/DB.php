@@ -1,7 +1,5 @@
 <?php
 
-// require_once('./config.php');
-
 namespace Database;
 
 class DB
@@ -65,7 +63,6 @@ class DB
         try {
             $dsn = "mysql:dbname=$this->dbname;host=$this->servername";
             $this->connection = new \PDO($dsn, $this->username, $this->password);
-            // echo "connected successfully";
         } catch (\PDOException $e) {
             echo 'Connection failed: ' . $e->getMessage();
         }

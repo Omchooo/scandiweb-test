@@ -2,30 +2,54 @@
 
 namespace Controllers;
 
-class AddProduct
+use Database\QueryBuilder;
+
+class ProductController
 {
-    //could be refactored to get all product types from database
+
     private $types = ['Furniture', 'Book', 'DVD'];
 
-    public function __construct()
+    //list all products
+    public function index()
     {
-        $this->run();
+        $result = $this->fetchResults();
+
+        return require_once('./public/views/index.view.php');
     }
 
-    public function run()
+    //delete products
+    public function delete()
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $this->create($_POST);
-            // print_r($_POST);
+        if (!isset($_POST['id'])) {
+            header('Content-Type: application/json', true, 400);
+            echo json_encode(['success' => false, 'message' => 'please select a product to delete']);
 
             exit();
         }
 
+        $ids = $_POST['id'];
+        if ($this->checkId($ids)) {
+            //Sku exists and will be deleted
+            $this->deleteSelected($ids);
+        } else {
+            //Sku does not exist and will not be deleted
+            header('Content-Type: application/json', true, 400);
+            echo json_encode(['success' => false, 'message' => 'there is no product with this id']);
+        }
+
+        exit();
+    }
+
+    //add product
+    public function add()
+    {
         require_once('./public/views/add_product.view.php');
     }
 
-    public function create(array $formData)
+    public function create()
     {
+        $formData = $_POST;
+
         $productType = $formData['type'] ?? null;
         if (empty($productType) || $productType == 'none') {
 
@@ -69,5 +93,20 @@ class AddProduct
             echo json_encode(['success' => false, 'message' => 'Please, provide the data of indicated type']);
             exit();
         }
+    }
+
+    public function fetchResults()
+    {
+        return (new QueryBuilder())->select('*', 'listings')->orderBy('Id')->get();
+    }
+
+    public function deleteSelected($selectedIds)
+    {
+        return (new QueryBuilder())->delete('listings')->whereIn('Id', $selectedIds)->execute();
+    }
+
+    public function checkId($id)
+    {
+        return (new QueryBuilder())->select('*', 'listings')->whereIn('Id', $id)->get();
     }
 }

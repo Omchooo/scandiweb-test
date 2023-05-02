@@ -31,28 +31,20 @@ $(document).ready(function () {
       );
     }
 
-    // console.log(product);
-
     $.ajax({
-      url: "add_product",
+      url: "product",
       type: "POST",
       data: product,
       dataType: "json",
       success: function (response) {
         if (response.success) {
           // success
-          // console.log(response.message);
 
           // Redirect to the index.php page
           var baseUrl = window.location.protocol + "//" + window.location.host;
           var indexUrl = baseUrl + "/";
           window.location.href = indexUrl;
         } 
-        // else {
-        //   // error
-        //   // console.log(response.message);
-        //   $("#error").text(response.message);
-        // }
       },
       error: function (response) {
         // handle error

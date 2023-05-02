@@ -58,12 +58,7 @@
             <option value="Book" id="Book">Book</option>
           </select>
         </div>
-        <div class="type-box">
-          <!-- <div class="form-input">
-                        <label for="size">Size (MB)</label>
-                        <input type="text" name="size" id="size">
-                    </div> -->
-        </div>
+        <div class="type-box"></div>
       </form>
     </div>
     <div class="container">
