@@ -16,11 +16,19 @@ Router::get('/add_product', ProductController::class, 'add');
 Router::post('/product', ProductController::class, 'create');
 
 $allRoutes = Router::getRoutes();
+$routeFound = false;
 
 foreach ($allRoutes as $routes) {
     if ($routes['uri'] === $uri && $routes['method'] === strtoupper($postMethod)) {
         $controller = new $routes['controller']();
         $method = $routes['class'];
         $controller->$method();
+        
+        $routeFound = true;
+        break;
     }
+}
+
+if (!$routeFound) {
+    require_once('./public/views/404.view.php');
 }
