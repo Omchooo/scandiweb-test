@@ -32,7 +32,7 @@ $(document).ready(function () {
     }
 
     $.ajax({
-      url: "product",
+      url: "/product",
       type: "POST",
       data: product,
       dataType: "json",
