@@ -1,10 +1,10 @@
 # Scandiweb Junior Developer Test Task
 
 For deleting and listing all products you can visit the following link: \
-https://juniortest-omer-sahmanovic.000webhostapp.com/
+[https://scandiweb.omer-s.com](https://scandiweb.omer-s.com/)
 
 For Adding new products you can visit the following link: \
-https://juniortest-omer-sahmanovic.000webhostapp.com/add_product
+[https://scandiweb.omer-s.com](https://scandiweb.omer-s.com/)
 
 
 
