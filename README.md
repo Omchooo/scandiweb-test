@@ -4,7 +4,7 @@ For deleting and listing all products you can visit the following link: \
 [https://scandiweb.omer-s.com](https://scandiweb.omer-s.com/)
 
 For Adding new products you can visit the following link: \
-[https://scandiweb.omer-s.com](https://scandiweb.omer-s.com/)
+[https://scandiweb.omer-s.com/add_product](https://scandiweb.omer-s.com/add_product)
 
 
 
